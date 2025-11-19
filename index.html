@@ -81,6 +81,8 @@
       pointer-events: none;
       z-index: -1;
     }
+
+    
     @keyframes orbit3d {
       0%   { transform: rotateY(0deg) rotateX(0deg) translateX(200px) scale(0.6); }
       25%  { transform: rotateY(90deg) rotateX(45deg) translateX(200px) scale(1.4); }
@@ -88,6 +90,46 @@
       75%  { transform: rotateY(270deg) rotateX(45deg) translateX(200px) scale(1.4); }
       100% { transform: rotateY(360deg) rotateX(0deg) translateX(200px) scale(0.6); }
     }
+    
+    /* === Safari-compatible orbit animation fixes === */
+.orbit {
+  will-change: transform;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  animation: orbit3d 12s linear infinite;
+  -webkit-animation: orbit3d 12s linear infinite;
+}
+
+/* Create a perspective wrapper instead of using body */
+body {
+  perspective: none;
+}
+.perspective-wrapper {
+  perspective: 800px;
+  -webkit-perspective: 800px;
+}
+
+/* Replace img with wrapper */
+.perspective-wrapper .orbit { }
+
+/* Add Safari-stable transforms */
+@keyframes orbit3d {
+  0%   { transform: rotateY(0deg) rotateX(0deg) translate3d(200px,0,0) scale(0.6); }
+  25%  { transform: rotateY(90deg) rotateX(45deg) translate3d(200px,0,0) scale(1.4); }
+  50%  { transform: rotateY(180deg) rotateX(0deg) translate3d(200px,0,0) scale(0.6); }
+  75%  { transform: rotateY(270deg) rotateX(45deg) translate3d(200px,0,0) scale(1.4); }
+  100% { transform: rotateY(360deg) rotateX(0deg) translate3d(200px,0,0) scale(0.6); }
+}
+
+@-webkit-keyframes orbit3d {
+  0%   { -webkit-transform: rotateY(0deg) rotateX(0deg) translate3d(200px,0,0) scale(0.6); }
+  25%  { -webkit-transform: rotateY(90deg) rotateX(45deg) translate3d(200px,0,0) scale(1.4); }
+  50%  { -webkit-transform: rotateY(180deg) rotateX(0deg) translate3d(200px,0,0) scale(0.6); }
+  75%  { -webkit-transform: rotateY(270deg) rotateX(45deg) translate3d(200px,0,0) scale(1.4); }
+  100% { -webkit-transform: rotateY(360deg) rotateX(0deg) translate3d(200px,0,0) scale(0.6); }
+}
+
+
 
     section {
       background: #0F4D92;
@@ -177,6 +219,11 @@
 <body>
   <img src="wingMerchantLogo.png" alt="Orbiting Sprite" class="orbit">
 
+  <div class="perspective-wrapper">
+    <img src="wingMerchantLogo.png" alt="Orbiting Sprite" class="orbit">
+  </div>
+
+
   <div class="container">
     <header>
       <img src="wingMerchantHeader.png" alt="Wing Merchant" class="avatar">
@@ -212,10 +259,10 @@
 
     <section id="contact">
       <h2>Contact</h2>
-      <p>Email: <a href="mailto:wingmerchant.music@gmail.com">wingmerchant.music@gmail.com</a></p>
-      <p>Instagram: <a href="https://www.instagram.com/wing_merchant/">@wing_merchant</a></p>
-      <p>TikTok: <a href="https://www.tiktok.com/@wing_merchant">@wing_merchant</a></p>
-      <p>YouTube: <a href="https://www.youtube.com/@wing_merchant/videos">@wing_merchant</a></p>
+      <p style="padding-bottom: 0.25cm; font-size:12px">Email: <a href="mailto:wingmerchant.music@gmail.com">wingmerchant.music@gmail.com</a></p>
+      <p style="padding-bottom: 0.25cm; font-size:12px">Instagram: <a href="https://www.instagram.com/wing_merchant/">@wing_merchant</a></p>
+      <p style="padding-bottom: 0.25cm; font-size:12px">TikTok: <a href="https://www.tiktok.com/@wing_merchant">@wing_merchant</a></p>
+      <p style="padding-bottom: 0.25cm; font-size:12px">YouTube: <a href="https://www.youtube.com/@wing_merchant/videos">@wing_merchant</a></p>
     </section>
 
     <footer>
